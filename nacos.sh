@@ -31,8 +31,5 @@ if docker ps --format '{{.Image}}'|grep $IMAGE:$TAG > /dev/null 2>&1; then
   echo "Image $IMAGE:$TAG already in use , skip docker start conatiner : $CONTAINER"
   else
     docker rm $CONTAINER
-    docker run --name $CONTAINER --network $NETWORK \ 
-    --env-file=nacos.env \
-    -v $VOLUME:/home/nacos \
-    -p 8848:8848 -d $IMAGE:$TAG
+    docker run --name $CONTAINER --network $NETWORK --env-file=nacos.env -v $VOLUME:/home/nacos -p 8848:8848 -d $IMAGE:$TAG
 fi
