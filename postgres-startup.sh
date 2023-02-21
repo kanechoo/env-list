@@ -13,7 +13,7 @@ TAG=15.2-alpine3.17
 # docker container env file
 ENV_FILE=postgres-startup.env
 # docker container listen on local machine port
-LISTEN_PORT=5432
+PORT=5432
 
 
 # Network
@@ -47,6 +47,6 @@ if docker ps --format '{{.Image}}'|grep $IMAGE:$TAG > /dev/null 2>&1; then
        docker start $container_name
        else
          echo "Start new container $CONTAINER"
-         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/var/lib/postgresql/data -p $LISTEN_PORT:5432 -d $IMAGE:$TAG
+         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/var/lib/postgresql/data -p $PORT:5432 -d $IMAGE:$TAG
     fi
 fi

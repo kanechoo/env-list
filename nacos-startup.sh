@@ -13,7 +13,7 @@ TAG=v2.2.0-slim
 # docker container env file
 ENV_FILE=nacos-startup.env
 # docker container listen on local machine port
-LISTEN_PORT=8848
+PORT=8848
 
 # Network
 if docker network ls --format '{{.Name}}'| grep $NETWORK > /dev/null 2>&1; then
@@ -46,6 +46,6 @@ if docker ps --format '{{.Image}}'|grep $IMAGE:$TAG > /dev/null 2>&1; then
        docker start $container_name
        else
          echo "Start new container $CONTAINER"
-         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/home/nacos -p $LISTEN_PORT:8848 -d $IMAGE:$TAG
+         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/home/nacos -p $PORT:8848 -d $IMAGE:$TAG
     fi
 fi

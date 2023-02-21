@@ -13,7 +13,7 @@ TAG=8.0.32-amd64
 # docker container env file
 ENV_FILE=mysql-startup.env
 # docker container listen on local machine port
-LISTEN_PORT=3306
+PORT=3306
 
 
 # Network
@@ -47,6 +47,6 @@ if docker ps --format '{{.Image}}'|grep $IMAGE:$TAG > /dev/null 2>&1; then
        docker start $container_name
        else
          echo "Start new container $CONTAINER"
-         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/var/lib/mysql -p $LISTEN_PORT:3306 -d $IMAGE:$TAG
+         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/var/lib/mysql -p $PORT:3306 -d $IMAGE:$TAG
     fi
 fi
