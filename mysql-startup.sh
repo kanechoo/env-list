@@ -11,7 +11,7 @@ IMAGE=mysql/mysql-server
 # docker container image tag
 TAG=8.0.32-amd64
 # docker container env file
-ENV_FILE=mysql.env
+ENV_FILE=mysql-startup.env
 # docker container listen on local machine port
 LISTEN_PORT=3306
 

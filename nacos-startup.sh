@@ -11,7 +11,7 @@ IMAGE=nacos/nacos-server
 # docker container image tag
 TAG=v2.2.0-slim
 # docker container env file
-ENV_FILE=nacos.env
+ENV_FILE=nacos-startup.env
 # docker container listen on local machine port
 LISTEN_PORT=8848
 
