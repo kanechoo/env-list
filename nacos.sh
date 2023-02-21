@@ -27,11 +27,11 @@ if docker volume ls --format '{{.Name}}'|grep $VOLUME; then
 fi
 
 # docker start container
-if docker ps --format '{{.Image}}'|grep $IMAGE:TAG; then
+if docker ps --format '{{.Image}}'|grep $IMAGE:$TAG; then
   echo "Image $IMAGE:$TAG already in use , skip docker start conatiner : $CONTAINER"
   else
     docker run --name $CONTAINER --network $NETWORK \ 
-    --env-file nacos.env \
+    --env-file=nacos.env \
     -v $VOLUME:/home/nacos \
     -p 8848:8848 -d $IMAGE:$TAG
 fi
