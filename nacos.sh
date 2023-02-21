@@ -30,6 +30,12 @@ fi
 if docker ps --format '{{.Image}}'|grep $IMAGE:$TAG > /dev/null 2>&1; then
   echo "Image $IMAGE:$TAG already in use , skip docker start conatiner : $CONTAINER"
   else
-    docker rm $CONTAINER
-    docker run --name $CONTAINER --network $NETWORK --env-file=nacos.env -v $VOLUME:/home/nacos -p 8848:8848 -d $IMAGE:$TAG
+    if docker container ls -a --format '{{.Image}}' | grep $IMAGE:$TAG > /dev/null 2>&1; then
+       container_name=$(docker container ls -a --format '{{.Image}} {{.Names}}'|grep $IMAGE:$TAG|awk '{print $2}')
+       echo "Start exited container $container_name"
+       docker start $container_name
+       else
+         echo "Start new container $CONTAINER"
+         docker run --name $CONTAINER --network $NETWORK --env-file=nacos.env -v $VOLUME:/home/nacos -p 8848:8848 -d $IMAGE:$TAG
+    fi
 fi
