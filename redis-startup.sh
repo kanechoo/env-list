@@ -1,19 +1,20 @@
 #!/bin/sh
 
 # docker conatiner name
-CONTAINER=nacos
+CONTAINER=redis
 # docker network for current container
 NETWORK=localhost
 # docker volume for container persist data
-VOLUME=nacos-volume
+VOLUME=redis-volume
 # docker container image
-IMAGE=nacos/nacos-server
+IMAGE=redis
 # docker container image tag
-TAG=v2.2.0-slim
+TAG=alpine3.17
 # docker container env file
-ENV_FILE=nacos-startup.env
+ENV_FILE=redis-startup.env
 # docker container listen on local machine port
-PORT=8848
+PORT=6379
+
 
 # Network
 if docker network ls --format '{{.Name}}'| grep $NETWORK > /dev/null 2>&1; then
@@ -46,6 +47,6 @@ if docker ps --format '{{.Image}}'|grep $IMAGE:$TAG > /dev/null 2>&1; then
        docker start $container_name
        else
          echo "Start new container $CONTAINER"
-         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/home/nacos -p $PORT:8848 -d $IMAGE:$TAG
+         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/data -p $PORT:6379 -d $IMAGE:$TAG
     fi
 fi

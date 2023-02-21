@@ -1,19 +1,20 @@
 #!/bin/sh
 
 # docker conatiner name
-CONTAINER=nacos
+CONTAINER=registry
 # docker network for current container
 NETWORK=localhost
 # docker volume for container persist data
-VOLUME=nacos-volume
+VOLUME=registry-volume
 # docker container image
-IMAGE=nacos/nacos-server
+IMAGE=registry
 # docker container image tag
-TAG=v2.2.0-slim
+TAG=2
 # docker container env file
-ENV_FILE=nacos-startup.env
+ENV_FILE=registry-startup.env
 # docker container listen on local machine port
-PORT=8848
+PORT=5000
+
 
 # Network
 if docker network ls --format '{{.Name}}'| grep $NETWORK > /dev/null 2>&1; then
@@ -46,6 +47,6 @@ if docker ps --format '{{.Image}}'|grep $IMAGE:$TAG > /dev/null 2>&1; then
        docker start $container_name
        else
          echo "Start new container $CONTAINER"
-         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/home/nacos -p $PORT:8848 -d $IMAGE:$TAG
+         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/var/lib/registry -p $PORT:5000 -d $IMAGE:$TAG
     fi
 fi
