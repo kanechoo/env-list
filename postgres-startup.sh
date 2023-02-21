@@ -1,19 +1,19 @@
 #!/bin/sh
 
 # docker conatiner name
-CONTAINER=mysql
+CONTAINER=postgres
 # docker network for current container
 NETWORK=localhost
 # docker volume for container persist data
-VOLUME=mysql-volume
+VOLUME=postgres-volume
 # docker container image
-IMAGE=mysql/mysql-server
+IMAGE=postgres
 # docker container image tag
-TAG=8.0.32-amd64
+TAG=15.2-alpine3.17
 # docker container env file
-ENV_FILE=mysql-startup.env
+ENV_FILE=postgres-startup.env
 # docker container listen on local machine port
-LISTEN_PORT=3306
+LISTEN_PORT=5432
 
 
 # Network
@@ -47,6 +47,6 @@ if docker ps --format '{{.Image}}'|grep $IMAGE:$TAG > /dev/null 2>&1; then
        docker start $container_name
        else
          echo "Start new container $CONTAINER"
-         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/var/lib/mysql -p $LISTEN_PORT:3306 -d $IMAGE:$TAG
+         docker run --name $CONTAINER --network $NETWORK --env-file=$ENV_FILE -v $VOLUME:/var/lib/postgresql/data -p $LISTEN_PORT:5432 -d $IMAGE:$TAG
     fi
 fi
