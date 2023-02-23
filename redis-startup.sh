@@ -38,6 +38,6 @@ else
     docker start "$container_name"
   else
     echo "Start new container $CONTAINER"
-    docker run --name "$CONTAINER" --network "$NETWORK" --env-file="$ENV_FILE" -v "$VOLUME":/data -p "$PORT":6379 -d "$IMAGE:$TAG"
+    docker run --name "$CONTAINER" --network "$NETWORK" --env-file="$ENV_FILE" -v "$VOLUME":/data -p "$PORT":6379 -d --restart always "$IMAGE:$TAG"
   fi
 fi

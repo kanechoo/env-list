@@ -38,6 +38,6 @@ else
     docker start "$container_name"
   else
     echo "Start new container $CONTAINER"
-    docker run --name "$CONTAINER" --network "$NETWORK" --env-file="$ENV_FILE" -v "$VOLUME":/var/lib/postgresql/data -p "$PORT":5432 -d "$IMAGE:$TAG"
+    docker run --name "$CONTAINER" --network "$NETWORK" --env-file="$ENV_FILE" -v "$VOLUME":/var/lib/postgresql/data -p "$PORT":5432 -d --restart always "$IMAGE:$TAG"
   fi
 fi

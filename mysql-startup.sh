@@ -38,6 +38,6 @@ else
     docker start "$container_name"
   else
     echo "Start new container $CONTAINER"
-    docker run --name "$CONTAINER" --network "$NETWORK" --env-file="$ENV_FILE" -v "$VOLUME":/var/lib/mysql -p "$PORT":3306 -d "$IMAGE:$TAG"
+    docker run --name "$CONTAINER" --network "$NETWORK" --env-file="$ENV_FILE" -v "$VOLUME":/var/lib/mysql -p "$PORT":3306 -d --restart always "$IMAGE:$TAG"
   fi
 fi

@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Load the environment file
-if [ -f "registry-startup.env" ]; then
-  . registry-startup.env
+if [ -f "mongo-startup.env" ]; then
+  . mongo-startup.env
 else
   echo "Cannot find the env file [redis-startup.env] in current folder"
 fi
@@ -38,6 +38,6 @@ else
     docker start "$container_name"
   else
     echo "Start new container $CONTAINER"
-    docker run --name "$CONTAINER" --network "$NETWORK" --env-file="$ENV_FILE" -v "$VOLUME":/var/lib/registry -p "$PORT":5000 -d --restart always "$IMAGE:$TAG"
+    docker run --name "$CONTAINER" --network "$NETWORK" --env-file="$ENV_FILE" -v "$VOLUME":/data/db -p "$PORT":27017 -d --restart always "$IMAGE:$TAG"
   fi
 fi
